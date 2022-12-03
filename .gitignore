@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+*.exe
+/App/Zihou(debug).exe
+/Zihou.vcxproj
+/Zihou.vcxproj.filters
+/Zihou.sln
