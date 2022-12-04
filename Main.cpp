@@ -1,5 +1,6 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.5
 
+#define Zihou_VOLUME 0.5
 
 
 bool announce(DateTime TIME) {
@@ -32,7 +33,7 @@ bool announce(DateTime TIME) {
 		s += U"分 ";
 	}
 	s += Format((TIME.second / 10 + 1) * 10);
-	s += U"秒を_お知らせします。";
+	s += U"秒を お知らせします。";
 	Say << s;
 	return 0;
 }
@@ -43,6 +44,7 @@ void Main()
 	const Font degi{50};//時計オブジェクトを設定
 	const Font mdegi{25};//時計オブジェクトを設定
 	auto lastsay = nowtime;//最終読み上げ時刻を格納
+
 	TextToSpeech::SetDefaultLanguage(LanguageCode::Japanese);//Sayする言語を設定
 	TextToSpeech::SetVolume(1);
 	TextToSpeech::SetSpeed(0.8);
@@ -50,6 +52,8 @@ void Main()
 	const Audio sinelow { U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/500hz.wav"};
 	const Audio sinemid { U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/1000hz.wav" };
 	const Audio sinehigh{ U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/2000hz.wav"};
+
+	bool secondmute = 0;
 
 	while (System::Update())//本文
 	{
@@ -62,12 +66,13 @@ void Main()
 			lastsay = nowtime;//最終読み上げ時刻を更新
 
 			if (nowtime.second % 10 == 0) {
-				sinemid.playOneShot(0.5);
+				sinemid.playOneShot(Zihou_VOLUME);
 				announce(nowtime);
 			}
-			else if ((nowtime.second % 30 - 27) >= 0) {sinelow.playOneShot(0.5);}
-			sinehigh.playOneShot(0.5);
+			else if ((nowtime.second % 30 - 27) >= 0) {sinelow.playOneShot(Zihou_VOLUME);}
+			sinehigh.playOneShot(secondmute ? 0 : Zihou_VOLUME);
 		}
+		SimpleGUI::CheckBox(secondmute, U"毎秒の時報音をミュート", { 0, 500 }, 270, true);
 	}
 }
 
