@@ -1,13 +1,40 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.5
 
 
-String ms(auto m) {//デシ秒を0詰めで返却
-	m /= 10;//ミリ秒をデシ秒に
-	String r = {};//返却変数の初期化
-	//if (m < 100)r += '0';//ミリ秒の0
-	if (m < 10)r += '0';//デシ秒の0
-	r += Format(m);//実測値の追加
-	return r;//返却
+
+bool announce(DateTime TIME) {
+	String s = {};
+	if (TIME.hour == 11 && TIME.minute == 59 && TIME.second >= 50) {
+		Say << U"正午をお知らせします。";
+		return 0;
+	}
+	if (TIME.minute==59&&TIME.second>=50)
+	{
+		if (TIME.hour >= 12&&TIME.hour<=22)s += U"午後 ";
+		else s += U"午前 ";
+		s += Format((TIME.hour + 1) % 24);
+		s += U"時 ちょうどを お知らせします。";
+		Say << s;
+		return 0;
+	}
+	if (TIME.hour >= 12)s += U"午後 ";
+	else s += U"午前 ";
+	s += Format(TIME.hour);
+	s += U"時 ";
+	if (TIME.second >= 50) {
+		s += Format(TIME.minute + 1);
+		s += U"分 ちょうどを お知らせします。";
+		Say << s;
+		return 0;
+	}
+	if (TIME.minute != 0) {
+		s += Format(TIME.minute);
+		s += U"分 ";
+	}
+	s += Format((TIME.second / 10 + 1) * 10);
+	s += U"秒を_お知らせします。";
+	Say << s;
+	return 0;
 }
 
 void Main()
@@ -17,26 +44,29 @@ void Main()
 	const Font mdegi{25};//時計オブジェクトを設定
 	auto lastsay = nowtime;//最終読み上げ時刻を格納
 	TextToSpeech::SetDefaultLanguage(LanguageCode::Japanese);//Sayする言語を設定
+	TextToSpeech::SetVolume(1);
+	TextToSpeech::SetSpeed(0.8);
 
 	const Audio sinelow { U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/500hz.wav"};
 	const Audio sinemid { U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/1000hz.wav" };
 	const Audio sinehigh{ U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/2000hz.wav"};
 
-	Say << Format(nowtime).substr(11,12);//現在時刻を読み上げ
-	while (TextToSpeech::IsSpeaking());//読み上げ終了まで待機
 	while (System::Update())//本文
 	{
 		nowtime = DateTime::Now();//現在時刻を更新
 		degi(nowtime).draw(20, 20);//時計オブジェクトを設置＆更新
-		mdegi(ms(nowtime.milliseconds)).draw(550, 50);//時計オブジェクトを設置＆更新
+		mdegi(nowtime.format(U"SS")).draw(550, 50);//時計オブジェクトを設置＆更新
 
 		//Console << Format(nowtime.second % 30 - 27);//デバッグコンソールに最終読み上げ時刻を出力
 		if (nowtime.second != lastsay.second) {
 			lastsay = nowtime;//最終読み上げ時刻を更新
 
-			if (nowtime.second % 10 == 0) {sinemid.playOneShot();}
-			else if ((nowtime.second % 30 - 27) >= 0) {sinelow.playOneShot();}
-			sinehigh.playOneShot();
+			if (nowtime.second % 10 == 0) {
+				sinemid.playOneShot(0.5);
+				announce(nowtime);
+			}
+			else if ((nowtime.second % 30 - 27) >= 0) {sinelow.playOneShot(0.5);}
+			sinehigh.playOneShot(0.5);
 		}
 	}
 }
