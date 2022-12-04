@@ -1,13 +1,13 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.5
 
 
-String ms(auto m) {
-	m /= 10;
-	String r = {};
-	//if (m < 100)r += '0';
-	if (m < 10)r += '0';
-	r += Format(m);
-	return r;
+String ms(auto m) {//デシ秒を0詰めで返却
+	m /= 10;//ミリ秒をデシ秒に
+	String r = {};//返却変数の初期化
+	//if (m < 100)r += '0';//ミリ秒の0
+	if (m < 10)r += '0';//デシ秒の0
+	r += Format(m);//実測値の追加
+	return r;//返却
 }
 
 void Main()
