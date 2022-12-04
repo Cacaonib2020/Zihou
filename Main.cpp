@@ -41,25 +41,32 @@ bool announce(DateTime TIME) {
 void Main()
 {
 	auto nowtime = DateTime::Now();//現在時刻を格納
-	const Font degi{50};//時計オブジェクトを設定
-	const Font mdegi{25};//時計オブジェクトを設定
+	const Font ddegi{50,U"../App/Fonts/DSEG7Classic.ttf"};//日付オブジェクトを設定
+	const Font degi{150,U"../App/Fonts/DSEG7Classic.ttf" };//時計オブジェクトを設定
+	const Font mdegi{50,U"../App/Fonts/DSEG7Classic.ttf" };//デシ秒オブジェクトを設定
 	auto lastsay = nowtime;//最終読み上げ時刻を格納
 
-	TextToSpeech::SetDefaultLanguage(LanguageCode::Japanese);//Sayする言語を設定
+	TextToSpeech::SetDefaultLanguage(LanguageCode::Japanese);//Sayを設定
 	TextToSpeech::SetVolume(1);
 	TextToSpeech::SetSpeed(0.8);
 
-	const Audio sinelow { U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/500hz.wav"};
-	const Audio sinemid { U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/1000hz.wav" };
-	const Audio sinehigh{ U"C:/Users/yuzu6/WorkSpace/PlayGround/C++/Zihou/Tone/2000hz.wav"};
+	const Audio sinelow { U"../App/Tone/500hz.wav" };
+	const Audio sinemid { U"../App/Tone/1000hz.wav" };
+	const Audio sinehigh{ U"../App/Tone/2000hz.wav" };
 
 	bool secondmute = 0;
+
+	for (const auto& path : EnumResourceFiles()){
+		Console << path;
+	}
+
 
 	while (System::Update())//本文
 	{
 		nowtime = DateTime::Now();//現在時刻を更新
-		degi(nowtime).draw(20, 20);//時計オブジェクトを設置＆更新
-		mdegi(nowtime.format(U"SS")).draw(550, 50);//時計オブジェクトを設置＆更新
+		ddegi(nowtime.format(U"yyyy-MM-dd")).drawAt(380,60);//時計オブジェクトを設置＆更新
+		degi(nowtime.format(U"HH:mm:ss")).drawAt(380, 200);//時計オブジェクトを設置＆更新
+		mdegi(nowtime.format(U"SS")).draw(700, 300);//時計オブジェクトを設置＆更新
 
 		//Console << Format(nowtime.second % 30 - 27);//デバッグコンソールに最終読み上げ時刻を出力
 		if (nowtime.second != lastsay.second) {

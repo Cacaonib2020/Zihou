@@ -66,6 +66,7 @@ Resource(engine/shader/glsl/sky.frag)
 //
 Resource(engine/font/min/siv3d-min.woff)
 
+
 //
 //	Box-shadow Textures
 //
@@ -118,6 +119,10 @@ Resource(engine/soundfont/GMGSx.sf2.zstdcmp)
 //	Siv3D App Resources (Your application resources here)
 //
 //////////////////////////////////////////////////////
+Resource(Tone/500hz.wav)
+Resource(Tone/1000hz.wav)
+Resource(Tone/2000hz.wav)
+Resource(Fonts/DSEG7Classic.ttf)
 
 
 
@@ -138,3 +143,4 @@ Resource(engine/soundfont/GMGSx.sf2.zstdcmp)
 	MYIDENTIFIER_1 FILE "assets/a b c.txt"
 	MYIDENTIFIER_2 FILE "level 1/map.dat"
 */
+
