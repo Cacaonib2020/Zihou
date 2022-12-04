@@ -363,7 +363,18 @@ MigrationBackup/
 FodyWeavers.xsd
 
 *.exe
-/App/Zihou(debug).exe
 /Zihou.vcxproj
 /Zihou.vcxproj.filters
 /Zihou.sln
+/desktop.ini
+App/engine/
+App/example/
+App/icon.ico
+App/AS_DEBUG/
+App/Resource.rc/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.pdb
+*.lib
+*.exp
