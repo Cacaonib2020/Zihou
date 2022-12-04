@@ -56,9 +56,9 @@ void Main()
 
 	bool secondmute = 0;
 
-	for (const auto& path : EnumResourceFiles()){
-		Console << path;
-	}
+	//for (const auto& path : EnumResourceFiles()){
+	//	Console << path;
+	//}
 
 
 	while (System::Update())//本文
