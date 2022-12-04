@@ -1,9 +1,20 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.5
 
+
+String ms(auto m) {
+	m /= 10;
+	String r = {};
+	//if (m < 100)r += '0';
+	if (m < 10)r += '0';
+	r += Format(m);
+	return r;
+}
+
 void Main()
 {
 	auto nowtime = DateTime::Now();//現在時刻を格納
 	const Font degi{50};//時計オブジェクトを設定
+	const Font mdegi{25};//時計オブジェクトを設定
 	auto lastsay = nowtime;//最終読み上げ時刻を格納
 	TextToSpeech::SetDefaultLanguage(LanguageCode::Japanese);//Sayする言語を設定
 
@@ -17,6 +28,7 @@ void Main()
 	{
 		nowtime = DateTime::Now();//現在時刻を更新
 		degi(nowtime).draw(20, 20);//時計オブジェクトを設置＆更新
+		mdegi(ms(nowtime.milliseconds)).draw(550, 50);//時計オブジェクトを設置＆更新
 
 		//Console << Format(nowtime.second % 30 - 27);//デバッグコンソールに最終読み上げ時刻を出力
 		if (nowtime.second != lastsay.second) {
