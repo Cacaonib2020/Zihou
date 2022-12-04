@@ -362,18 +362,18 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-/Zihou.vcxproj
-/Zihou.vcxproj.filters
-/Zihou.sln
-/desktop.ini
-App/engine/
-App/example/
-App/icon.ico
-App/AS_DEBUG/
-App/Resource.rc/
-*.vcxproj
-*.vcxproj.filters
-*.vcxproj.user
-*.pdb
-*.lib
-*.exp
+# /Zihou.vcxproj
+# /Zihou.vcxproj.filters
+# /Zihou.sln
+# /desktop.ini
+# App/engine/
+# App/example/
+# App/icon.ico
+# App/AS_DEBUG/
+# App/Resource.rc/
+# *.vcxproj
+# *.vcxproj.filters
+# *.vcxproj.user
+# *.pdb
+# *.lib
+# *.exp

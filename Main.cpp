@@ -41,7 +41,7 @@ bool announce(DateTime TIME) {
 void Main()
 {
 	auto nowtime = DateTime::Now();//現在時刻を格納
-	const Font ddegi{50,U"../App/Fonts/DSEG7Classic.ttf"};//日付オブジェクトを設定
+	const Font ddegi{50,U"../App/Fonts/DSEG14Classic.ttf"};//日付オブジェクトを設定
 	const Font degi{150,U"../App/Fonts/DSEG7Classic.ttf" };//時計オブジェクトを設定
 	const Font mdegi{50,U"../App/Fonts/DSEG7Classic.ttf" };//デシ秒オブジェクトを設定
 	auto lastsay = nowtime;//最終読み上げ時刻を格納
@@ -64,7 +64,7 @@ void Main()
 	while (System::Update())//本文
 	{
 		nowtime = DateTime::Now();//現在時刻を更新
-		ddegi(nowtime.format(U"yyyy-MM-dd")).drawAt(380,60);//時計オブジェクトを設置＆更新
+		ddegi(nowtime.format(U"yyyy-MM-dd EEE")).drawAt(380,60);//時計オブジェクトを設置＆更新
 		degi(nowtime.format(U"HH:mm:ss")).drawAt(380, 200);//時計オブジェクトを設置＆更新
 		mdegi(nowtime.format(U"SS")).draw(700, 300);//時計オブジェクトを設置＆更新
 
