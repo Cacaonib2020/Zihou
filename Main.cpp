@@ -65,7 +65,7 @@ void Main()
 	{
 		nowtime = DateTime::Now();//現在時刻を更新
 		ddegi(nowtime.format(U"yyyy-MM-dd EEE")).drawAt(380,60);//時計オブジェクトを設置＆更新
-		degi(nowtime.format(U"HH:mm:ss")).drawAt(380, 200);//時計オブジェクトを設置＆更新
+		degi(nowtime.format(U"HH:mm:ss")).drawAt(400, 200);//時計オブジェクトを設置＆更新
 		mdegi(nowtime.format(U"SS")).draw(700, 300);//時計オブジェクトを設置＆更新
 
 		//Console << Format(nowtime.second % 30 - 27);//デバッグコンソールに最終読み上げ時刻を出力
